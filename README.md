@@ -1,0 +1,58 @@
+Green Navigation OSM database
+
+# Dependencies
+
+Only docker is needed. Check the documentation on how to install docker and add your user to the docker group (so you don't have to type `sudo docker` every time).
+
+# Instructions
+
+TL;DR
+
+```zsh
+./start_db.sh
+./import.sh # enter greennav as password
+./import_test.sh
+```
+
+Full instructions:
+
+## 1. Create the database
+
+To start up the development PostgreSQL container, simple run
+
+```zsh
+./start_db.sh
+```
+
+You can verify that the db is running by checking
+
+```zsh
+docker ps
+```
+
+(postgis-greennav should show up)
+
+## 2. Import osm data
+
+Once it is up and running, modify the `import/create-luebeck.sh` file to download and import the region you need. Then proceed with
+
+```zsh
+./import.sh
+```
+
+When all dependencies are downloaded and installed, you will be prompted for a password. Just enter `greennav` (didn't find a way to automate this yet).
+
+## 3. (Optional) verify that data has been written
+
+As an example, a simple counter has been implemented in Python. Just spin up the third container with
+
+```zsh
+./test_import.sh
+```
+
+The output should be `Points/Lines/Roads: 69471/102701/8385`. Check `test/test.py` for an example on how to connect to the db.
+
+# TODO
+
+- Create own docker images so you don't have to install wget and osm2pgsql every time
+- Automate the password entry for osm2pgsql
