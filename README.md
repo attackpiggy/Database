@@ -2,6 +2,12 @@
 
 This repository allows you to create a database server with OpenStreetMap data fast. To reduce the dependencies, it uses docker for the database and the import task. `Osm2pgsql` (in the Ubuntu repositories) does this fast. After the import, the PostgreSQL database is active on `postgis:5432` with the credentials `greennav:greennav`.
 
+## TODO
+
+- Make database changes persistent (See postgres docker image for information)
+- Create docker images so you don't have to install `wget` and `osm2pgsql` for every import
+- Automate the password entry for `osm2pgsql`
+
 ## Dependencies
 
 Only docker is needed. Check the documentation on how to install docker and add your user to the docker group (so you don't have to type `sudo docker` every time).
@@ -53,8 +59,3 @@ As an example, a simple counter has been implemented in Python. Just spin up the
 ```
 
 The output should be `Points/Lines/Roads: 69471/102701/8385`. Check `test/test.py` for an example on how to connect to the db.
-
-# TODO
-
-- Create own docker images so you don't have to install wget and osm2pgsql every time
-- Automate the password entry for osm2pgsql
